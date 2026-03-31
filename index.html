@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>DinoHub - Le royaume des dinosaures">
+
+<style>
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
+body{background:#111;color:#eee;transition:.3s;}
+a{text-decoration:none;color:inherit;}
+
+/* LIGHT MODE */
+body.light{background:#f2f2f2;color:#111;}
+body.light header{background:#fff;border-bottom:1px solid #ccc;}
+body.light .card{background:#fff;color:#111;}
+body.light .thumb{background:#ddd;}
+body.light footer{background:#fff;border-top:1px solid #ccc;}
+body.light .back-btn{background:#ff9900;color:#000;}
+
+/* HEADER */
+header{
+    background:#000;padding:12px 20px;
+    display:flex;justify-content:space-between;align-items:center;
+    border-bottom:1px solid #222;position:sticky;top:0;z-index:20;
+}
+.logo{display:flex;align-items:center;gap:6px;}
+.logo-box{background:#ff9900;color:#000;padding:4px 8px;border-radius:3px;font-weight:bold;}
+nav{display:flex;gap:20px;}
+nav a:hover{color:#ff9900;}
+.search-bar input{
+    background:#222;border:1px solid #333;color:#fff;
+    padding:6px 10px;border-radius:3px;width:180px;
+}
+
+/* MOBILE MENU */
+.menu-btn{
+    display:none;font-size:26px;cursor:pointer;
+}
+@media(max-width:800px){
+    nav{display:none;flex-direction:column;background:#000;position:absolute;top:60px;right:0;padding:20px;width:200px;}
+    nav.open{display:flex;}
+    .menu-btn{display:block;}
+}
+
+/* THEME SWITCH */
+.theme-toggle{
+    cursor:pointer;font-size:20px;margin-left:15px;
+}
+
+/* HERO */
+.hero{padding:40px;background:linear-gradient(135deg,#000,#111,#1a1a1a);}
+.hero-title{font-size:32px;margin-bottom:10px;}
+.hero-subtitle{color:#ccc;margin-bottom:20px;}
+
+/* GRID */
+.section{padding:30px 20px;}
+.section-title{font-size:22px;margin-bottom:16px;}
+.video-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:16px;
+}
+.card{
+    background:#181818;border-radius:4px;overflow:hidden;
+    cursor:pointer;transition:.2s;position:relative;
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 6px 16px #000;}
+.thumb{
+    height:130px;background:#333;background-size:cover;background-position:center;
+    display:flex;align-items:flex-end;padding:8px;
+}
+.thumb-tag{
+    background:#000a;color:#ff9900;padding:3px 6px;border-radius:3px;font-size:11px;
+}
+.card-body{padding:10px;}
+.card-title{font-size:14px;margin-bottom:6px;}
+.card-meta{font-size:11px;color:#aaa;display:flex;justify-content:space-between;}
+
+/* FAVORIS */
+.fav-btn{
+    position:absolute;top:8px;right:8px;
+    background:#000a;padding:6px;border-radius:50%;cursor:pointer;
+    font-size:18px;color:#ff9900;
+}
+.fav-btn.active{color:#ffd700;}
+
+/* VIDEO PAGE */
+#videoPage{
+    display:none;padding:30px 20px;
+}
+.video-container{
+    max-width:900px;margin:auto;
+}
+iframe{
+    width:100%;height:500px;border:none;border-radius:6px;
+}
+.back-btn{
+    display:inline-block;margin-top:20px;padding:10px 16px;
+    background:#ff9900;color:#000;border-radius:4px;font-weight:bold;
+}
+.back-btn:hover{background:#ffb84d;}
+
+/* FOOTER */
+footer{
+    padding:20px;background:#000;border-top:1px solid #222;
+    display:flex;justify-content:space-between;color:#777;
+}
+</style>
+<script>
+/* MINIATURES + INFOS DES DINOS */
+const dinos = {
+    trex:{
+        title:"Tyrannosaurus Rex",
+        tag:"Carnivore",
+        duration:"12 min",
+        rating:"4.8 ★",
+        thumb:"https://i.imgur.com/0Y8FQ0M.jpeg",
+        video:"https://www.youtube.com/embed/QxZ_iPldGtI"
+    },
+    triceratops:{
+        title:"Tricératops",
+        tag:"Herbivore",
+        duration:"9 min",
+        rating:"4.6 ★",
+        thumb:"https://i.imgur.com/3mJxq6C.jpeg",
+        video:"https://www.youtube.com/embed/1F9FQdZkY9E"
+    },
+    velociraptor:{
+        title:"Vélociraptor",
+        tag:"Rapide",
+        duration:"7 min",
+        rating:"4.7 ★",
+        thumb:"https://i.imgur.com/2vZ8q2F.jpeg",
+        video:"https://www.youtube.com/embed/QxZ_iPldGtI?t=40"
+    },
+    mosasaurus:{
+        title:"Mosasaurus",
+        tag:"Aquatique",
+        duration:"11 min",
+        rating:"4.9 ★",
+        thumb:"https://i.imgur.com/1p5Y0vL.jpeg",
+        video:"https://www.youtube.com/embed/Vn8phH0k5HI"
+    },
+    pteranodon:{
+        title:"Ptéranodon",
+        tag:"Volant",
+        duration:"6 min",
+        rating:"4.5 ★",
+        thumb:"https://i.imgur.com/6u8Y0QH.jpeg",
+        video:"https://www.youtube.com/embed/0Gxv3Zqkq5Q"
+    },
+    ankylosaurus:{
+        title:"Ankylosaurus",
+        tag:"Armuré",
+        duration:"8 min",
+        rating:"4.4 ★",
+        thumb:"https://i.imgur.com/7t9Y0pS.jpeg",
+        video:"https://www.youtube.com/embed/5n3ZQvZkY9E"
+    }
+};
+
+/* FAVORIS */
+let favs = JSON.parse(localStorage.getItem("favs") || "[]");
+
+function toggleFav(dino){
+    if(favs.includes(dino)){
+        favs = favs.filter(f=>f!==dino);
+    } else {
+        favs.push(dino);
+    }
+    localStorage.setItem("favs", JSON.stringify(favs));
+    renderCards();
+}
+
+/* AFFICHAGE DES CARTES */
+function renderCards(){
+    const grid = document.getElementById("grid");
+    grid.innerHTML = "";
+
+    Object.keys(dinos).forEach(key=>{
+        const d = dinos[key];
+        const fav = favs.includes(key) ? "active" : "";
+
+        grid.innerHTML += `
+        <div class="card" data-title="${d.title}" onclick="openVideo('${key}')">
+            <div class="thumb" style="background-image:url('${d.thumb}')">
+                <span class="thumb-tag">${d.tag}</span>
+                <div class="fav-btn ${fav}" onclick="event.stopPropagation(); toggleFav('${key}')">★</div>
+            </div>
+            <div class="card-body">
+                <div class="card-title">${d.title}</div>
+                <div class="card-meta"><span>${d.duration}</span><span>${d.rating}</span></div>
+            </div>
+        </div>`;
+    });
+}
+
+/* PAGE VIDÉO */
+function openVideo(dino){
+    const d = dinos[dino];
+    document.getElementById("homePage").style.display="none";
+    document.getElementById("videoPage").style.display="block";
+    document.getElementById("videoTitle").innerText = d.title;
+    document.getElementById("videoFrame").src = d.video;
+}
+
+function goHome(){
+    document.getElementById("videoFrame").src="";
+    document.getElementById("videoPage").style.display="none";
+    document.getElementById("homePage").style.display="block";
+}
+
+/* RECHERCHE */
+function searchDinos(){
+    const input = document.getElementById("search").value.toLowerCase();
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card=>{
+        const title = card.dataset.title.toLowerCase();
+        card.style.display = title.includes(input) ? "block" : "none";
+    });
+}
+
+/* MODE SOMBRE / CLAIR */
+function toggleTheme(){
+    document.body.classList.toggle("light");
+    localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
+}
+
+/* MENU MOBILE */
+function toggleMenu(){
+    document.querySelector("nav").classList.toggle("open");
+}
+
+/* INIT */
+window.onload = ()=>{
+    if(localStorage.getItem("theme")==="light"){
+        document.body.classList.add("light");
+    }
+    renderCards();
+};
+</script>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <div class="logo-box">Dino</div>
+        <div class="logo-text">Hub</div>
+    </div>
+
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+    <nav>
+        <a onclick="goHome()">Accueil</a>
+        <a href="#videos">Vidéos</a>
+        <a onclick="toggleTheme()">Mode clair/sombre</a>
+    </nav>
+
+    <div class="search-bar">
+        <input id="search" type="text" placeholder="Rechercher..." onkeyup="searchDinos()">
+    </div>
+</header>
+
+<!-- PAGE ACCUEIL -->
+<div id="homePage">
+
+<section class="hero">
+    <h1 class="hero-title">Le meilleur des dinosaures.</h1>
+    <p class="hero-subtitle">Documentaires, fiches, vidéos… tout est là.</p>
+</section>
+
+<section class="section" id="videos">
+    <h2 class="section-title">Dinosaures populaires</h2>
+    <div class="video-grid" id="grid"></div>
+</section>
+
+</div>
+
+<!-- PAGE VIDÉO -->
+<div id="videoPage">
+    <h1 id="videoTitle"></h1>
+
+    <div class="video-container">
+        <iframe id="videoFrame" allowfullscreen></iframe>
+    </div>
+
+    <a class="back-btn" onclick="goHome()">← Retour</a>
+</div>
+
+<footer>
+    <div>© 2026 DinoHub</div>
+    <div><a href="#">Contact</a></div>
+</footer>
+
+</body>
+</html>
