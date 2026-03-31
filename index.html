@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>DinoHub - Le royaume des dinosaures</title>
+    <style>
+        /* RESET SIMPLE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #111;
+            color: #f5f5f5;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* HEADER */
+        header {
+            background-color: #000;
+            padding: 12px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #222;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-box {
+            background-color: #ff9900; /* orange accent */
+            color: #000;
+            padding: 4px 8px;
+            font-weight: bold;
+            border-radius: 3px;
+            text-transform: uppercase;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+        }
+
+        nav a {
+            color: #ddd;
+        }
+
+        nav a:hover {
+            color: #ff9900;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-bar input {
+            background-color: #222;
+            border: 1px solid #333;
+            padding: 6px 10px;
+            border-radius: 3px;
+            color: #fff;
+            width: 220px;
+        }
+
+        .search-bar button {
+            background-color: #ff9900;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .search-bar button:hover {
+            background-color: #ffb84d;
+        }
+
+        /* HERO / BANNIÈRE */
+        .hero {
+            padding: 40px;
+            background: linear-gradient(135deg, #000 0%, #111 40%, #1a1a1a 100%);
+            border-bottom: 1px solid #222;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-primary {
+            background-color: #ff9900;
+            color: #000;
+            padding: 10px 18px;
+            border-radius: 3px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary:hover {
+            background-color: #ffb84d;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #ff9900;
+            padding: 10px 18px;
+            border-radius: 3px;
+            border: 1px solid #ff9900;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #1a1a1a;
+        }
+
+        /* SECTION CONTENU */
+        .section {
+            padding: 30px 40px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            background-color: #181818;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+        }
+
+        .thumb {
+            background: linear-gradient(135deg, #333, #555);
+            height: 130px;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 8px;
+        }
+
+        .thumb-tag {
+            background-color: rgba(0,0,0,0.7);
+            color: #ff9900;
+            font-size: 11px;
+            padding: 3px 6px;
+            border-radius: 3px;
+        }
+
+        .card-body {
+            padding: 10px;
+        }
+
+        .card-title {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .card-meta {
+            font-size: 11px;
+            color: #aaa;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 20px 40px;
+            border-top: 1px solid #222;
+            background-color: #000;
+            font-size: 12px;
+            color: #777;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-links a {
+            color: #777;
+        }
+
+        .footer-links a:hover {
+            color: #ff9900;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 800px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .hero {
+                padding: 24px;
+            }
+
+            .section {
+                padding: 24px;
+            }
+
+            .search-bar input {
+                width: 160px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <div class="logo-box">Dino</div>
+        <div class="logo-text">Hub</div>
+    </div>
+
+    <nav>
+        <a href="#">Accueil</a>
+        <a href="#">Top dinos</a>
+        <a href="#">Catégories</a>
+        <a href="#">Nouveautés</a>
+    </nav>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Rechercher un dinosaure...">
+        <button>Rechercher</button>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">Le meilleur des dinosaures en un seul endroit.</h1>
+        <p class="hero-subtitle">
+            Découvre des fiches, des vidéos documentaires et des images spectaculaires de tes dinos préférés :
+            T-Rex, Tricératops, Vélociraptor, et bien plus.
+        </p>
+        <div class="hero-buttons">
+            <button class="btn-primary">Découvrir les top dinos</button>
+            <button class="btn-secondary">Explorer les catégories</button>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <h2 class="section-title">Dinosaures populaires</h2>
+    <div class="video-grid">
+        <div class="card">
+            <div class="thumb">
+                <span class="thumb-tag">Carnivore</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Tyrannosaurus Rex - Le roi des prédateurs</div>
+                <div class="card-meta">
+                    <span>Durée: 12 min</span>
+                    <span>4.8 ★</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="thumb">
+                <span class="thumb-tag">Herbivore</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Tricératops - Le tank blindé du Crétacé</div>
+                <div class="card-meta">
+                    <span>Durée: 9 min</span>
+                    <span>4.6 ★</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="thumb">
+                <span class="thumb-tag">Rapide</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Vélociraptor - Chasseur en meute</div>
+                <div class="card-meta">
+                    <span>Durée: 7 min</span>
+                    <span>4.7 ★</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="thumb">
+                <span class="thumb-tag">Aquatique</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Mosasaurus - Terreur des océans</div>
+                <div class="card-meta">
+                    <span>Durée: 11 min</span>
+                    <span>4.9 ★</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="thumb">
+                <span class="thumb-tag">Volant</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Ptéranodon - Maître des airs</div>
+                <div class="card-meta">
+                    <span>Durée: 6 min</span>
+                    <span>4.5 ★</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="thumb">
+                <span class="thumb-tag">Armuré</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">Ankylosaurus - Bouclier vivant</div>
+                <div class="card-meta">
+                    <span>Durée: 8 min</span>
+                    <span>4.4 ★</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div>© 2026 DinoHub - Site fictif sur les dinosaures.</div>
+    <div class="footer-links">
+        <a href="#">À propos</a>
+        <a href="#">Contact</a>
+        <a href="#">Mentions légales</a>
+    </div>
+</footer>
+
+</body>
+</html>
