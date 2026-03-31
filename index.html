@@ -7,103 +7,93 @@
 <style>
 /* RESET */
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
-body{background:#111;color:#eee;transition:.3s;}
-a{text-decoration:none;color:inherit;}
-
-/* LIGHT MODE */
-body.light{background:#f2f2f2;color:#111;}
-body.light header{background:#fff;border-bottom:1px solid #ccc;}
-body.light .card{background:#fff;color:#111;}
-body.light .thumb{background:#ddd;}
-body.light footer{background:#fff;border-top:1px solid #ccc;}
-body.light .back-btn{background:#ff9900;color:#000;}
+body{background:#0d0d0d;color:#eee;}
 
 /* HEADER */
 header{
-    background:#000;padding:12px 20px;
+    background:#000;padding:15px 25px;
     display:flex;justify-content:space-between;align-items:center;
-    border-bottom:1px solid #222;position:sticky;top:0;z-index:20;
+    position:sticky;top:0;z-index:20;
 }
-.logo{display:flex;align-items:center;gap:6px;}
-.logo-box{background:#ff9900;color:#000;padding:4px 8px;border-radius:3px;font-weight:bold;}
+.logo{display:flex;align-items:center;gap:6px;font-size:22px;font-weight:bold;}
+.logo-box{background:#e50914;color:#fff;padding:4px 8px;border-radius:3px;}
 nav{display:flex;gap:20px;}
-nav a:hover{color:#ff9900;}
-.search-bar input{
-    background:#222;border:1px solid #333;color:#fff;
-    padding:6px 10px;border-radius:3px;width:180px;
-}
+nav a{color:#ccc;font-size:15px;}
+nav a:hover{color:#fff;}
+.menu-btn{display:none;font-size:28px;cursor:pointer;color:#fff;}
 
-/* MOBILE MENU */
-.menu-btn{
-    display:none;font-size:26px;cursor:pointer;
-}
 @media(max-width:800px){
-    nav{display:none;flex-direction:column;background:#000;position:absolute;top:60px;right:0;padding:20px;width:200px;}
+    nav{
+        display:none;flex-direction:column;background:#000;
+        position:absolute;top:60px;right:0;padding:20px;width:200px;
+    }
     nav.open{display:flex;}
     .menu-btn{display:block;}
 }
 
 /* HERO */
-.hero{padding:40px;background:linear-gradient(135deg,#000,#111,#1a1a1a);}
-.hero-title{font-size:32px;margin-bottom:10px;}
-.hero-subtitle{color:#ccc;margin-bottom:20px;}
+.hero{
+    padding:60px 30px;
+    background:url('https://i.imgur.com/8uZq0qT.jpeg') center/cover no-repeat;
+    background-blend-mode:darken;
+    background-color:#000a;
+}
+.hero-title{font-size:42px;font-weight:bold;margin-bottom:10px;}
+.hero-subtitle{color:#ccc;font-size:18px;}
 
 /* GRID */
-.section{padding:30px 20px;}
-.section-title{font-size:22px;margin-bottom:16px;}
+.section{padding:30px;}
+.section-title{font-size:24px;margin-bottom:16px;}
 .video-grid{
     display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-    gap:16px;
+    gap:20px;
 }
 .card{
-    background:#181818;border-radius:4px;overflow:hidden;
+    background:#111;border-radius:6px;overflow:hidden;
     cursor:pointer;transition:.2s;position:relative;
 }
-.card:hover{transform:translateY(-3px);box-shadow:0 6px 16px #000;}
+.card:hover{transform:scale(1.05);}
 .thumb{
-    height:130px;background:#333;background-size:cover;background-position:center;
-    display:flex;align-items:flex-end;padding:8px;
-}
-.thumb-tag{
-    background:#000a;color:#ff9900;padding:3px 6px;border-radius:3px;font-size:11px;
+    height:140px;background-size:cover;background-position:center;
 }
 .card-body{padding:10px;}
-.card-title{font-size:14px;margin-bottom:6px;}
-.card-meta{font-size:11px;color:#aaa;display:flex;justify-content:space-between;}
+.card-title{font-size:15px;margin-bottom:6px;}
+.card-meta{font-size:12px;color:#aaa;display:flex;justify-content:space-between;}
 
 /* FAVORIS */
 .fav-btn{
     position:absolute;top:8px;right:8px;
     background:#000a;padding:6px;border-radius:50%;cursor:pointer;
-    font-size:18px;color:#ff9900;
+    font-size:18px;color:#e50914;
 }
 .fav-btn.active{color:#ffd700;}
 
-/* VIDEO PAGE */
-#videoPage{
-    display:none;padding:30px 20px;
+/* MODALE VIDEO */
+#videoModal{
+    display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+    background:#000d;backdrop-filter:blur(4px);
+    justify-content:center;align-items:center;z-index:50;
 }
-.video-container{
-    max-width:900px;margin:auto;
+.modal-content{
+    width:90%;max-width:900px;
 }
 iframe{
     width:100%;height:500px;border:none;border-radius:6px;
 }
-.back-btn{
-    display:inline-block;margin-top:20px;padding:10px 16px;
-    background:#ff9900;color:#000;border-radius:4px;font-weight:bold;
+.close-btn{
+    color:#fff;font-size:30px;cursor:pointer;
+    position:absolute;top:20px;right:40px;
 }
-.back-btn:hover{background:#ffb84d;}
 
 /* FOOTER */
 footer{
-    padding:20px;background:#000;border-top:1px solid #222;
-    display:flex;justify-content:space-between;color:#777;
+    padding:20px;background:#000;color:#777;
+    display:flex;justify-content:space-between;
 }
 </style>
 
 <script>
-/* MINIATURES + INFOS DES DINOS */
+/* BASE DE DONNÉES */
 const dinos = {
     trex:{
         title:"Tyrannosaurus Rex",
@@ -178,11 +168,9 @@ function renderCards(){
         const fav = favs.includes(key) ? "active" : "";
 
         grid.innerHTML += `
-        <div class="card" data-title="${d.title}" onclick="openVideo('${key}')">
-            <div class="thumb" style="background-image:url('${d.thumb}')">
-                <span class="thumb-tag">${d.tag}</span>
-                <div class="fav-btn ${fav}" onclick="event.stopPropagation(); toggleFav('${key}')">★</div>
-            </div>
+        <div class="card" onclick="openVideo('${key}')">
+            <div class="thumb" style="background-image:url('${d.thumb}')"></div>
+            <div class="fav-btn ${fav}" onclick="event.stopPropagation(); toggleFav('${key}')">★</div>
             <div class="card-body">
                 <div class="card-title">${d.title}</div>
                 <div class="card-meta"><span>${d.duration}</span><span>${d.rating}</span></div>
@@ -191,19 +179,16 @@ function renderCards(){
     });
 }
 
-/* PAGE VIDÉO */
+/* MODALE VIDEO */
 function openVideo(dino){
     const d = dinos[dino];
-    document.getElementById("homePage").style.display="none";
-    document.getElementById("videoPage").style.display="block";
-    document.getElementById("videoTitle").innerText = d.title;
     document.getElementById("videoFrame").src = d.video;
+    document.getElementById("videoModal").style.display = "flex";
 }
 
-function goHome(){
-    document.getElementById("videoFrame").src="";
-    document.getElementById("videoPage").style.display="none";
-    document.getElementById("homePage").style.display="block";
+function closeVideo(){
+    document.getElementById("videoFrame").src = "";
+    document.getElementById("videoModal").style.display = "none";
 }
 
 /* RECHERCHE */
@@ -212,15 +197,9 @@ function searchDinos(){
     const cards = document.querySelectorAll(".card");
 
     cards.forEach(card=>{
-        const title = card.dataset.title.toLowerCase();
+        const title = card.querySelector(".card-title").innerText.toLowerCase();
         card.style.display = title.includes(input) ? "block" : "none";
     });
-}
-
-/* MODE SOMBRE / CLAIR */
-function toggleTheme(){
-    document.body.classList.toggle("light");
-    localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
 }
 
 /* MENU MOBILE */
@@ -229,12 +208,7 @@ function toggleMenu(){
 }
 
 /* INIT */
-window.onload = ()=>{
-    if(localStorage.getItem("theme")==="light"){
-        document.body.classList.add("light");
-    }
-    renderCards();
-};
+window.onload = ()=>{ renderCards(); };
 </script>
 </head>
 
@@ -242,25 +216,20 @@ window.onload = ()=>{
 
 <header>
     <div class="logo">
-        <div class="logo-box">Dino</div>
-        <div class="logo-text">Hub</div>
+        <div class="logo-box">Dino</div>Hub
     </div>
 
     <div class="menu-btn" onclick="toggleMenu()">☰</div>
 
     <nav>
-        <a onclick="goHome()">Accueil</a>
+        <a href="#">Accueil</a>
         <a href="#videos">Vidéos</a>
-        <a onclick="toggleTheme()">Mode clair/sombre</a>
     </nav>
 
     <div class="search-bar">
         <input id="search" type="text" placeholder="Rechercher..." onkeyup="searchDinos()">
     </div>
 </header>
-
-<!-- PAGE ACCUEIL -->
-<div id="homePage">
 
 <section class="hero">
     <h1 class="hero-title">Le meilleur des dinosaures.</h1>
@@ -272,17 +241,12 @@ window.onload = ()=>{
     <div class="video-grid" id="grid"></div>
 </section>
 
-</div>
-
-<!-- PAGE VIDÉO -->
-<div id="videoPage">
-    <h1 id="videoTitle"></h1>
-
-    <div class="video-container">
+<!-- MODALE VIDEO -->
+<div id="videoModal">
+    <div class="close-btn" onclick="closeVideo()">✖</div>
+    <div class="modal-content">
         <iframe id="videoFrame" allowfullscreen></iframe>
     </div>
-
-    <a class="back-btn" onclick="goHome()">← Retour</a>
 </div>
 
 <footer>
