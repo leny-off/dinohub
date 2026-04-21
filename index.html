@@ -90,7 +90,13 @@ nav a:hover{color:#7a3fff;}
     box-shadow:0 14px 30px rgba(160,107,255,.25);
 }
 .thumb{
-    position:relative;height:160px;background:#f0e8ff;background-size:cover;background-position:center;
+    position:relative;height:160px;overflow:hidden;background:#f0e8ff;
+}
+.thumb-img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
 }
 .thumb-tag{
     position:absolute;left:10px;bottom:10px;
@@ -233,7 +239,8 @@ function renderCards(filter=""){
         const isFav = favs.includes(key);
         grid.innerHTML += `
         <div class="card" onclick="openPhoto('${key}')">
-            <div class="thumb" style="background-image:url('${d.thumb}')">
+            <div class="thumb">
+                <img src="${d.thumb}" alt="${d.title}" class="thumb-img">
                 <span class="thumb-tag">${d.tag}</span>
                 <div class="fav-btn ${isFav ? "" : "inactive"}" onclick="toggleFav('${key}',event)">★</div>
             </div>
@@ -318,5 +325,4 @@ window.onload = ()=>{ renderCards(); };
 
 </body>
 </html>
-
 
