@@ -2,41 +2,43 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>DinoHub – Le royaume des dinosaures</title>
+<title>DinoHub – Dinosaures Pastel Kawaii</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
-body{background:#050509;color:#f5f5f5;}
+body{background:#f7f4ff;color:#333;}
 a{text-decoration:none;color:inherit;}
 
 /* HEADER */
 header{
-    background:linear-gradient(to right,#000,#120010);
+    background:#fff;
     padding:16px 40px;
     display:flex;align-items:center;justify-content:space-between;
     position:sticky;top:0;z-index:20;
+    border-bottom:1px solid #e5dfff;
 }
 .logo{
-    display:flex;align-items:center;gap:8px;font-weight:800;font-size:24px;letter-spacing:1px;
+    display:flex;align-items:center;gap:8px;font-weight:800;font-size:24px;
+    color:#a06bff;
 }
 .logo-badge{
-    background:#e50914;color:#fff;padding:4px 10px;border-radius:4px;font-size:18px;
+    background:#d7b3ff;color:#fff;padding:4px 10px;border-radius:4px;font-size:18px;
 }
 nav{display:flex;gap:20px;font-size:15px;}
-nav a{color:#ccc;}
-nav a:hover{color:#fff;}
+nav a{color:#a06bff;}
+nav a:hover{color:#7a3fff;}
 .search-bar input{
-    background:#14141a;border:1px solid #333;color:#fff;
+    background:#f0e8ff;border:1px solid #d8caff;color:#333;
     padding:6px 10px;border-radius:999px;width:190px;font-size:14px;
 }
 
 /* MOBILE */
-.menu-btn{display:none;font-size:26px;cursor:pointer;}
+.menu-btn{display:none;font-size:26px;cursor:pointer;color:#a06bff;}
 @media(max-width:800px){
     header{padding:12px 16px;}
     nav{
         display:none;flex-direction:column;position:absolute;top:60px;right:10px;
-        background:#050509;border:1px solid #222;border-radius:8px;padding:12px 16px;
+        background:#fff;border:1px solid #e5dfff;border-radius:8px;padding:12px 16px;
     }
     nav.open{display:flex;}
     .menu-btn{display:block;}
@@ -45,33 +47,33 @@ nav a:hover{color:#fff;}
 /* HERO */
 .hero{
     padding:70px 40px 40px;
-    background:radial-gradient(circle at top,#3b0015,#050509 55%);
+    background:linear-gradient(to bottom,#f3e7ff,#f7f4ff);
 }
 .hero-tag{
-    display:inline-block;background:#e50914;color:#fff;
+    display:inline-block;background:#d7b3ff;color:#fff;
     padding:4px 10px;border-radius:999px;font-size:12px;margin-bottom:12px;
 }
 .hero-title{
-    font-size:42px;font-weight:800;margin-bottom:10px;
+    font-size:42px;font-weight:800;margin-bottom:10px;color:#7a3fff;
 }
 .hero-subtitle{
-    color:#d0d0d0;font-size:17px;max-width:520px;margin-bottom:20px;
+    color:#6a5a8a;font-size:17px;max-width:520px;margin-bottom:20px;
 }
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
 .btn-primary{
-    background:#fff;color:#000;padding:10px 18px;border-radius:4px;
+    background:#a06bff;color:#fff;padding:10px 18px;border-radius:4px;
     font-weight:600;font-size:14px;cursor:pointer;border:none;
 }
-.btn-primary:hover{background:#f3f3f3;}
+.btn-primary:hover{background:#7a3fff;}
 .btn-ghost{
-    background:transparent;color:#fff;padding:10px 18px;border-radius:4px;
-    border:1px solid #555;font-size:14px;cursor:pointer;
+    background:transparent;color:#7a3fff;padding:10px 18px;border-radius:4px;
+    border:1px solid #cbb3ff;font-size:14px;cursor:pointer;
 }
-.btn-ghost:hover{border-color:#888;}
+.btn-ghost:hover{border-color:#a06bff;}
 
 /* SECTION */
 .section{padding:20px 40px 40px;}
-.section-title{font-size:22px;font-weight:700;margin-bottom:16px;}
+.section-title{font-size:22px;font-weight:700;margin-bottom:16px;color:#7a3fff;}
 
 /* GRID */
 .video-grid{
@@ -79,47 +81,43 @@ nav a:hover{color:#fff;}
     gap:18px;
 }
 .card{
-    background:#101018;border-radius:8px;overflow:hidden;
+    background:#fff;border-radius:12px;overflow:hidden;
     cursor:pointer;transition:transform .18s ease,box-shadow .18s ease;
-    position:relative;
+    border:1px solid #e5dfff;
 }
 .card:hover{
     transform:translateY(-4px) scale(1.02);
-    box-shadow:0 14px 30px rgba(0,0,0,.7);
+    box-shadow:0 14px 30px rgba(160,107,255,.25);
 }
 .thumb{
-    position:relative;height:140px;background:#222;background-size:cover;background-position:center;
-}
-.thumb-overlay{
-    position:absolute;inset:0;
-    background:linear-gradient(to top,rgba(0,0,0,.75),transparent 55%);
+    position:relative;height:160px;background:#f0e8ff;background-size:cover;background-position:center;
 }
 .thumb-tag{
     position:absolute;left:10px;bottom:10px;
-    background:#e50914;color:#fff;font-size:11px;
+    background:#d7b3ff;color:#fff;font-size:11px;
     padding:3px 8px;border-radius:999px;
 }
 .fav-btn{
     position:absolute;top:8px;right:8px;
-    background:rgba(0,0,0,.7);width:30px;height:30px;
+    background:rgba(255,255,255,.8);width:30px;height:30px;
     border-radius:50%;display:flex;align-items:center;justify-content:center;
     font-size:17px;color:#ffcc33;cursor:pointer;
 }
-.fav-btn.inactive{color:#777;}
+.fav-btn.inactive{color:#bbb;}
 .card-body{padding:10px 12px 12px;}
-.card-title{font-size:15px;font-weight:600;margin-bottom:4px;}
+.card-title{font-size:15px;font-weight:600;margin-bottom:4px;color:#7a3fff;}
 .card-meta{
-    font-size:12px;color:#aaa;display:flex;justify-content:space-between;align-items:center;
+    font-size:12px;color:#6a5a8a;display:flex;justify-content:space-between;align-items:center;
 }
 
-/* MODAL VIDEO */
-#videoModal{
+/* MODAL PHOTO */
+#photoModal{
     display:none;position:fixed;inset:0;
-    background:rgba(0,0,0,.85);backdrop-filter:blur(4px);
+    background:rgba(0,0,0,.65);backdrop-filter:blur(4px);
     justify-content:center;align-items:center;z-index:50;
 }
 .modal-inner{
-    width:92%;max-width:900px;
+    width:92%;max-width:700px;
 }
 .modal-header{
     display:flex;justify-content:space-between;align-items:center;
@@ -127,80 +125,75 @@ nav a:hover{color:#fff;}
 }
 .modal-title{font-size:18px;font-weight:600;}
 .close-btn{
-    font-size:26px;cursor:pointer;color:#ccc;
+    font-size:26px;cursor:pointer;color:#fff;
 }
-.close-btn:hover{color:#fff;}
-iframe{
-    width:100%;height:500px;border:none;border-radius:8px;
-}
-@media(max-width:700px){
-    iframe{height:260px;}
+.modal-img{
+    width:100%;border-radius:12px;
 }
 
 /* FOOTER */
 footer{
-    padding:18px 40px;background:#050509;border-top:1px solid #181820;
+    padding:18px 40px;background:#fff;border-top:1px solid #e5dfff;
     display:flex;justify-content:space-between;align-items:center;
-    color:#777;font-size:13px;
+    color:#7a3fff;font-size:13px;
 }
-footer a{color:#aaa;}
-footer a:hover{color:#fff;}
+footer a{color:#a06bff;}
+footer a:hover{color:#7a3fff;}
 </style>
 
 <script>
 /* ————————————————————————————————
-   BASE DE DONNÉES DES DINOS
-   (Tu vas remplacer les vidéos toi-même)
+   IMAGES CARTOON PASTEL (style Pinterest)
 ——————————————————————————————— */
 
 const dinos = {
     trex:{
         title:"Tyrannosaurus Rex",
-        tag:"Carnivore légendaire",
-        duration:"14 min",
-        rating:"4.9 ★",
-        thumb:"https://placehold.co/600x340/1b1b27/eaeaea?text=T-Rex",
-        video:""  // ← tu vas mettre ton lien embed ici
+        tag:"Kawaii",
+        duration:"Image",
+        rating:"★ Pastel",
+        thumb:"https://placehold.co/600x400/f7e6ff/7a3fff?text=T-Rex+Kawaii",
+        photo:"https://placehold.co/1000x700/f7e6ff/7a3fff?text=T-Rex+Pastel"
     },
     triceratops:{
         title:"Tricératops",
-        tag:"Herbivore blindé",
-        duration:"11 min",
-        rating:"4.7 ★",
-        thumb:"https://placehold.co/600x340/1b1b27/eaeaea?text=Triceratops",
-        video:""
+        tag:"Mignon",
+        duration:"Image",
+        rating:"★ Pastel",
+        thumb:"https://placehold.co/600x400/f7e6ff/7a3fff?text=Triceratops+Kawaii",
+        photo:"https://placehold.co/1000x700/f7e6ff/7a3fff?text=Triceratops+Pastel"
     },
     velociraptor:{
         title:"Vélociraptor",
-        tag:"Prédateur rapide",
-        duration:"9 min",
-        rating:"4.8 ★",
-        thumb:"https://placehold.co/600x340/1b1b27/eaeaea?text=Velociraptor",
-        video:""
+        tag:"Cute",
+        duration:"Image",
+        rating:"★ Pastel",
+        thumb:"https://placehold.co/600x400/f7e6ff/7a3fff?text=Velociraptor+Kawaii",
+        photo:"https://placehold.co/1000x700/f7e6ff/7a3fff?text=Velociraptor+Pastel"
     },
     mosasaurus:{
         title:"Mosasaurus",
-        tag:"Monstre des océans",
-        duration:"13 min",
-        rating:"4.9 ★",
-        thumb:"https://placehold.co/600x340/1b1b27/eaeaea?text=Mosasaurus",
-        video:""
+        tag:"Pastel",
+        duration:"Image",
+        rating:"★ Pastel",
+        thumb:"https://placehold.co/600x400/f7e6ff/7a3fff?text=Mosasaurus+Kawaii",
+        photo:"https://placehold.co/1000x700/f7e6ff/7a3fff?text=Mosasaurus+Pastel"
     },
     pteranodon:{
         title:"Ptéranodon",
-        tag:"Seigneur des airs",
-        duration:"8 min",
-        rating:"4.6 ★",
-        thumb:"https://placehold.co/600x340/1b1b27/eaeaea?text=Pteranodon",
-        video:""
+        tag:"Kawaii",
+        duration:"Image",
+        rating:"★ Pastel",
+        thumb:"https://placehold.co/600x400/f7e6ff/7a3fff?text=Pteranodon+Kawaii",
+        photo:"https://placehold.co/1000x700/f7e6ff/7a3fff?text=Pteranodon+Pastel"
     },
     ankylosaurus:{
         title:"Ankylosaurus",
-        tag:"Tank préhistorique",
-        duration:"10 min",
-        rating:"4.5 ★",
-        thumb:"https://placehold.co/600x340/1b1b27/eaeaea?text=Ankylosaurus",
-        video:""
+        tag:"Cute",
+        duration:"Image",
+        rating:"★ Pastel",
+        thumb:"https://placehold.co/600x400/f7e6ff/7a3fff?text=Ankylosaurus+Kawaii",
+        photo:"https://placehold.co/1000x700/f7e6ff/7a3fff?text=Ankylosaurus+Pastel"
     }
 };
 
@@ -217,20 +210,15 @@ function toggleFav(key,event){
     renderCards();
 }
 
-function openVideo(key){
+function openPhoto(key){
     const d = dinos[key];
-    if(!d.video){
-        alert("Aucune vidéo n’est encore définie pour ce dinosaure.");
-        return;
-    }
-    document.getElementById("videoTitle").innerText = d.title;
-    document.getElementById("videoFrame").src = d.video;
-    document.getElementById("videoModal").style.display = "flex";
+    document.getElementById("photoTitle").innerText = d.title;
+    document.getElementById("photoImg").src = d.photo;
+    document.getElementById("photoModal").style.display = "flex";
 }
 
-function closeVideo(){
-    document.getElementById("videoFrame").src = "";
-    document.getElementById("videoModal").style.display = "none";
+function closePhoto(){
+    document.getElementById("photoModal").style.display = "none";
 }
 
 function renderCards(filter=""){
@@ -244,9 +232,8 @@ function renderCards(filter=""){
 
         const isFav = favs.includes(key);
         grid.innerHTML += `
-        <div class="card" onclick="openVideo('${key}')">
+        <div class="card" onclick="openPhoto('${key}')">
             <div class="thumb" style="background-image:url('${d.thumb}')">
-                <div class="thumb-overlay"></div>
                 <span class="thumb-tag">${d.tag}</span>
                 <div class="fav-btn ${isFav ? "" : "inactive"}" onclick="toggleFav('${key}',event)">★</div>
             </div>
@@ -285,50 +272,5 @@ window.onload = ()=>{ renderCards(); };
 
     <nav>
         <a href="#">Accueil</a>
-        <a href="#videos">Vidéos</a>
-    </nav>
-
-    <div class="search-bar">
-        <input id="search" type="text" placeholder="Rechercher un dinosaure..." onkeyup="searchDinos()">
-    </div>
-</header>
-
-<section class="hero">
-    <div class="hero-tag">Nouveau • Plateforme docus dinos</div>
-    <h1 class="hero-title">Le meilleur des dinosaures.</h1>
-    <p class="hero-subtitle">
-        Plonge dans un univers de documentaires, d’analyses et de vidéos immersives sur les créatures les plus fascinantes de la préhistoire.
-    </p>
-    <div class="hero-actions">
-        <button class="btn-primary" onclick="document.getElementById('videos').scrollIntoView({behavior:'smooth'})">
-            ▶ Commencer à regarder
-        </button>
-        <button class="btn-ghost">
-            ★ Voir mes favoris
-        </button>
-    </div>
-</section>
-
-<section class="section" id="videos">
-    <h2 class="section-title">Dinosaures populaires</h2>
-    <div class="video-grid" id="grid"></div>
-</section>
-
-<div id="videoModal">
-    <div class="modal-inner">
-        <div class="modal-header">
-            <div class="modal-title" id="videoTitle"></div>
-            <div class="close-btn" onclick="closeVideo()">✕</div>
-        </div>
-        <iframe id="videoFrame" allowfullscreen></iframe>
-    </div>
-</div>
-
-<footer>
-    <div>© 2026 DinoHub – Tous droits réservés</div>
-    <div><a href="#">Contact</a></div>
-</footer>
-
-</body>
-</html>
+        <a href="#videos">
 
