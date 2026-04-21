@@ -148,6 +148,11 @@ footer a:hover{color:#fff;}
 </style>
 
 <script>
+/* ————————————————————————————————
+   BASE DE DONNÉES DES DINOS
+   (Tu vas remplacer les vidéos toi-même)
+——————————————————————————————— */
+
 const dinos = {
     trex:{
         title:"Tyrannosaurus Rex",
@@ -155,7 +160,7 @@ const dinos = {
         duration:"14 min",
         rating:"4.9 ★",
         thumb:"https://placehold.co/600x340/1b1b27/eaeaea?text=T-Rex",
-        video:"https://www.youtube.com/embed/KTKp5BzQqj4"
+        video:""  // ← tu vas mettre ton lien embed ici
     },
     triceratops:{
         title:"Tricératops",
@@ -163,7 +168,7 @@ const dinos = {
         duration:"11 min",
         rating:"4.7 ★",
         thumb:"https://placehold.co/600x340/1b1b27/eaeaea?text=Triceratops",
-        video:"https://www.youtube.com/embed/0hKQqkKqFqA"
+        video:""
     },
     velociraptor:{
         title:"Vélociraptor",
@@ -171,7 +176,7 @@ const dinos = {
         duration:"9 min",
         rating:"4.8 ★",
         thumb:"https://placehold.co/600x340/1b1b27/eaeaea?text=Velociraptor",
-        video:"https://www.youtube.com/embed/2bWv7vQfQxE"
+        video:""
     },
     mosasaurus:{
         title:"Mosasaurus",
@@ -179,7 +184,7 @@ const dinos = {
         duration:"13 min",
         rating:"4.9 ★",
         thumb:"https://placehold.co/600x340/1b1b27/eaeaea?text=Mosasaurus",
-        video:"https://www.youtube.com/embed/3vWw3vQwQ3E"
+        video:""
     },
     pteranodon:{
         title:"Ptéranodon",
@@ -187,7 +192,7 @@ const dinos = {
         duration:"8 min",
         rating:"4.6 ★",
         thumb:"https://placehold.co/600x340/1b1b27/eaeaea?text=Pteranodon",
-        video:"https://www.youtube.com/embed/4xXx4xXx4x4"
+        video:""
     },
     ankylosaurus:{
         title:"Ankylosaurus",
@@ -195,7 +200,7 @@ const dinos = {
         duration:"10 min",
         rating:"4.5 ★",
         thumb:"https://placehold.co/600x340/1b1b27/eaeaea?text=Ankylosaurus",
-        video:"https://www.youtube.com/embed/5yYy5yYy5y5"
+        video:""
     }
 };
 
@@ -214,16 +219,18 @@ function toggleFav(key,event){
 
 function openVideo(key){
     const d = dinos[key];
-    const modal = document.getElementById("videoModal");
+    if(!d.video){
+        alert("Aucune vidéo n’est encore définie pour ce dinosaure.");
+        return;
+    }
     document.getElementById("videoTitle").innerText = d.title;
     document.getElementById("videoFrame").src = d.video;
-    modal.style.display = "flex";
+    document.getElementById("videoModal").style.display = "flex";
 }
 
 function closeVideo(){
-    const modal = document.getElementById("videoModal");
     document.getElementById("videoFrame").src = "";
-    modal.style.display = "none";
+    document.getElementById("videoModal").style.display = "none";
 }
 
 function renderCards(filter=""){
@@ -324,3 +331,4 @@ window.onload = ()=>{ renderCards(); };
 
 </body>
 </html>
+
