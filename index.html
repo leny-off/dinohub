@@ -272,5 +272,50 @@ window.onload = ()=>{ renderCards(); };
 
     <nav>
         <a href="#">Accueil</a>
-        <a href="#videos">
+        <a href="#videos">Galerie</a>
+    </nav>
+
+    <div class="search-bar">
+        <input id="search" type="text" placeholder="Rechercher un dinosaure..." onkeyup="searchDinos()">
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-tag">Nouveau • Galerie pastel kawaii</div>
+    <h1 class="hero-title">Les dinosaures les plus mignons.</h1>
+    <p class="hero-subtitle">
+        Une collection adorable de dinosaures pastel, mignons et stylisés façon Pinterest.
+    </p>
+    <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('videos').scrollIntoView({behavior:'smooth'})">
+            🦕 Voir la galerie
+        </button>
+        <button class="btn-ghost">
+            ★ Voir mes favoris
+        </button>
+    </div>
+</section>
+
+<section class="section" id="videos">
+    <h2 class="section-title">Dinosaures pastel kawaii</h2>
+    <div class="video-grid" id="grid"></div>
+</section>
+
+<div id="photoModal">
+    <div class="modal-inner">
+        <div class="modal-header">
+            <div class="modal-title" id="photoTitle"></div>
+            <div class="close-btn" onclick="closePhoto()">✕</div>
+        </div>
+        <img id="photoImg" class="modal-img">
+    </div>
+</div>
+
+<footer>
+    <div>© 2026 DinoHub – Version Pastel Kawaii</div>
+    <div><a href="#">Contact</a></div>
+</footer>
+
+</body>
+</html>
 
